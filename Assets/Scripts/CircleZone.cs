@@ -27,14 +27,14 @@ public class CircleZone : MonoBehaviour {
 
         Mesh mesh = new Mesh();
         /////
-        mesh = CreateShape.Create(4f,Vector3.Distance(_ParentPlanet.position,Pos));
+        mesh = CreateShape.Create(1f,Vector3.Distance(_ParentPlanet.position,Pos));
         ////
         mesh.RecalculateNormals();
         mf.mesh = mesh;
         mr.material.color = Color.white;
 
-        TestCircle.transform.position = Pos;
-        TestCircle.transform.LookAt(_ParentPlanet.transform);
+        TestCircle.transform.position = _ParentPlanet.transform.position;
+        TestCircle.transform.LookAt(Pos);
         TestCircle.transform.parent = _ParentPlanet;
         TestCircle.AddComponent<CircleZone>();
         return TestCircle;

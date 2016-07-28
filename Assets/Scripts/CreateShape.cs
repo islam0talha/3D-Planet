@@ -60,7 +60,7 @@ public static class CreateShape {
         List<Vector3> vertList = new List<Vector3>();
         Dictionary<long, int> middlePointIndexCache = new Dictionary<long, int>();
         int recursionLevel = 3;
-        int numOfPoints = 10;
+        int numOfPoints = 5;
 
         float angleStep = 360.0f / (float)numOfPoints;
         Quaternion quaternion = Quaternion.Euler(0.0f, 0.0f, -angleStep);
@@ -76,33 +76,23 @@ public static class CreateShape {
         //}
 
         ///////////////////
-        float t = (radius + Mathf.Sqrt(5f)) / 2f;
+        float t = ((1f + Mathf.Sqrt(5f)) / 2f)*5;
 
-        vertList.Add(new Vector3(-1f, t, 0f).normalized    * PlanetRadius);
-        vertList.Add(new Vector3(1f, t, 0f).normalized     * PlanetRadius);
-        vertList.Add(new Vector3(0f, 1f, t).normalized     * PlanetRadius);
-        vertList.Add(new Vector3(0f, 1f, -t).normalized    * PlanetRadius);
-        vertList.Add(new Vector3(-t, 0f, -1f).normalized   * PlanetRadius);
-        vertList.Add(new Vector3(-t, 0f, 1f).normalized    * PlanetRadius);
+        vertList.Add(new Vector3(t, 1, 0).normalized * PlanetRadius);
+        vertList.Add(new Vector3(1, 0, -t).normalized * PlanetRadius);
+        vertList.Add(new Vector3(0, t, -1).normalized * PlanetRadius);
+        vertList.Add(new Vector3(0, t, 1).normalized * PlanetRadius);
+        vertList.Add(new Vector3(1, 0, t).normalized * PlanetRadius);
+        vertList.Add(new Vector3(t, -1, 0).normalized * PlanetRadius);
 
-        // create 5 triangles of the CurvedCircle
+
         List<TriangleIndices> faces = new List<TriangleIndices>();
-
-        // 5 faces around point 0
-        faces.Add(new TriangleIndices(0, 5, 2));
-        faces.Add(new TriangleIndices(0, 2, 1));
-        faces.Add(new TriangleIndices(0, 1, 3));
-        faces.Add(new TriangleIndices(0, 3, 4));
-        faces.Add(new TriangleIndices(0, 4, 5));
-
-        ///////////////////
-        //List<TriangleIndices> faces = new List<TriangleIndices>();
-        //int FacesCount = 0;
-        //for (FacesCount = 0; FacesCount <= numOfPoints-2; FacesCount++)
-        //{
-        //    faces.Add(new TriangleIndices(0, FacesCount + 1, FacesCount + 2));
-        //}
-        //faces.Add(new TriangleIndices(0, numOfPoints, 1));
+        int FacesCount = 0;
+        for (FacesCount = 0; FacesCount <= numOfPoints - 2; FacesCount++)
+        {
+            faces.Add(new TriangleIndices(0, FacesCount + 1, FacesCount + 2));
+        }
+        faces.Add(new TriangleIndices(0, numOfPoints, 1));
 
         // refine triangles
         for (int i = 0; i < recursionLevel; i++)
