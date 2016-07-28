@@ -10,8 +10,9 @@ public class CameraController : MonoBehaviour
     private float _xRotation;
     private float _yYRotation;
     float RotationSpeed = 1f;
-    float OrbitDegrees = 2f;
+    float OrbitDegrees = 1f;
     public float Distance = 2;
+    public float ZoomSpeed=2;
     #endregion
 
     #region Private Methods
@@ -22,7 +23,7 @@ public class CameraController : MonoBehaviour
     }
     private void Zoom(float ScrollV)
     {
-        Distance += ScrollV;
+        Distance -= ScrollV*4;
     }
     #endregion
 
@@ -39,8 +40,8 @@ public class CameraController : MonoBehaviour
         _yYRotation = Mathf.Lerp(_yYRotation, 0, _lerpRate);
         //transform.eulerAngles += new Vector3(-_yYRotation,_xRotation, 0);
         //transform.Rotate(Vector3.up, RotationSpeed * Time.deltaTime);
-        transform.position = Vector3.Lerp(transform.position, PlanetTarget.transform.position+(transform.position-PlanetTarget.transform.position).normalized*Distance, Time.deltaTime);
-        transform.RotateAround(PlanetTarget.transform.position, new Vector3(-_yYRotation, _xRotation, 0), OrbitDegrees);
+        transform.position = Vector3.Lerp(transform.position, PlanetTarget.transform.position+(transform.position-PlanetTarget.transform.position).normalized*Distance, Time.deltaTime* ZoomSpeed);
+        transform.RotateAround(PlanetTarget.transform.position, new Vector3(-_yYRotation, _xRotation, 0), OrbitDegrees*RotationSpeed);
         transform.LookAt(PlanetTarget.transform);
     }
 

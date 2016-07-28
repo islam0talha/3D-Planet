@@ -2,8 +2,8 @@
 using System.Collections;
 
 public delegate void MouseMoved(float xMovement, float yMovement);
-public delegate void MouseDown(Vector3 MousePos);
-public delegate void MouseDrag(float xMovement, float yMovement);
+public delegate void MouseDown(RaycastHit hit);
+public delegate void MouseDrag(RaycastHit hit);
 public delegate void MouseUp();
 public delegate void MouseWheel(float ScrollV);
 public class InputManager : MonoBehaviour
@@ -28,15 +28,15 @@ public class InputManager : MonoBehaviour
         var handler = MouseMoved;
         if (handler != null) handler(xmovement, ymovement);
     }
-    private static void OnMouseDown(Vector3 MousePos)
+    private static void OnMouseDown(RaycastHit hit)
     {
         var handler = MouseDown;
-        if (handler != null) handler(MousePos);
+        if (handler != null) handler(hit);
     }
-    private static void OnMouseDrag(float xmovement, float ymovement)
+    private static void OnMouseDrag(RaycastHit hit)
     {
         var handler = MouseDrag;
-        if (handler != null) handler(xmovement, ymovement);
+        if (handler != null) handler(hit);
     }
     private static void OnMouseUp()
     {
@@ -64,9 +64,9 @@ public class InputManager : MonoBehaviour
             if (clicked)
             {
                 //Drag
-                _xMovement = Input.GetAxis("Mouse X");
-                _yMovement = Input.GetAxis("Mouse Y");
-                OnMouseDrag(_xMovement, _yMovement);
+                RaycastHit hit;
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100))
+                    OnMouseDrag(hit);
             }
             else
             {
@@ -74,7 +74,7 @@ public class InputManager : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100))
                 {
-                    OnMouseDown(hit.point);
+                    OnMouseDown(hit);
                     clicked = true;
                 }
             }
