@@ -9,17 +9,19 @@ public class CircleZone : MonoBehaviour {
     static Vector3 _pos;
     static Vector3 _planetPos;
     static float _PlanetRadius;
+    static Material _DarkMat;
     // Use this for initialization
     void Start () {
         mr = GetComponent<MeshRenderer>();
         mf = GetComponent<MeshFilter>();
 	}
 
-    public static GameObject CreateNewZone(Transform _ParentPlanet,Vector3 Pos)
+    public static GameObject CreateNewZone(Transform _ParentPlanet,Vector3 Pos,Material DarkMat)
     {
         _PlanetRadius = Vector3.Distance(Pos, _ParentPlanet.position);
         _planetPos = _ParentPlanet.position;
         _pos = Pos;
+        _DarkMat = DarkMat;
         //CreateObject
         GameObject TestCircle = new GameObject();
         TestCircle.name = "zone";
@@ -31,7 +33,7 @@ public class CircleZone : MonoBehaviour {
         mesh = CreateShapeOnplanet.Create(_pos, _PlanetRadius, _planetPos, 1);
         ////
         mf.mesh = mesh;
-        mr.material.color = Color.white;
+        mr.material = _DarkMat;
 
         TestCircle.transform.position = Pos;
         TestCircle.transform.parent = _ParentPlanet;
@@ -45,7 +47,7 @@ public class CircleZone : MonoBehaviour {
         mesh.RecalculateNormals();
 
         mf.mesh = mesh;
-        mr.material.color = Color.white;
+        mr.material= _DarkMat;
     }
     
 }

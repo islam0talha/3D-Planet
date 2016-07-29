@@ -7,7 +7,7 @@ public class PlanetBehaviour : MonoBehaviour {
     public Transform target;
     public float RotationSpeed = 100f;
     public float OrbitDegrees = 1f;
-
+    public Material DarkMaterial;
     CircleZone _CurrentCircleZone;
     private Vector3 Delta;
     // Use this for initialization
@@ -31,7 +31,7 @@ public class PlanetBehaviour : MonoBehaviour {
     {
         if (hit.transform.gameObject == this.gameObject)
         {
-            _CurrentCircleZone = CircleZone.CreateNewZone(transform, hit.point).GetComponent<CircleZone>();
+            _CurrentCircleZone = CircleZone.CreateNewZone(transform, hit.point, DarkMaterial).GetComponent<CircleZone>();
             Delta = Vector3.zero;
         }
     }

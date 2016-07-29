@@ -64,7 +64,7 @@ public static class CreateShapeOnplanet {
         List<Vector3> vertList = new List<Vector3>();
         Dictionary<long, int> middlePointIndexCache = new Dictionary<long, int>();
         int recursionLevel = 3;
-        int numOfPoints =10;
+        int numOfPoints =20;
 
         float angleStep = (360 / (float)numOfPoints)*Mathf.Deg2Rad;
         CartesianToSpherical(_Clickedpos, PlanetCenter, out _radius, out _polar, out _elevation);
