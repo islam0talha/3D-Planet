@@ -38,8 +38,6 @@ public class CameraController : MonoBehaviour
     {
         _xRotation = Mathf.Lerp(_xRotation, 0, _lerpRate);
         _yYRotation = Mathf.Lerp(_yYRotation, 0, _lerpRate);
-        //transform.eulerAngles += new Vector3(-_yYRotation,_xRotation, 0);
-        //transform.Rotate(Vector3.up, RotationSpeed * Time.deltaTime);
         transform.position = Vector3.Lerp(transform.position, PlanetTarget.transform.position+(transform.position-PlanetTarget.transform.position).normalized*Distance, Time.deltaTime* ZoomSpeed);
         transform.RotateAround(PlanetTarget.transform.position, new Vector3(-_yYRotation, _xRotation, 0), OrbitDegrees*RotationSpeed);
         transform.LookAt(PlanetTarget.transform);

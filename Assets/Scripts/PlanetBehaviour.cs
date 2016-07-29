@@ -40,7 +40,7 @@ public class PlanetBehaviour : MonoBehaviour {
         if (hit.transform.gameObject == this.gameObject && _CurrentCircleZone!=null)
         {
             Delta = _CurrentCircleZone.transform.position - hit.point;
-            //_CurrentCircleZone.UpdateCircle(Mathf.Sqrt(Delta.x * Delta.x + Delta.y * Delta.y + Delta.z * Delta.z));
+            _CurrentCircleZone.UpdateCircleZone(Mathf.Sqrt(Delta.x * Delta.x + Delta.y * Delta.y + Delta.z * Delta.z));
         }
     }
     void _OnMouseUp()
